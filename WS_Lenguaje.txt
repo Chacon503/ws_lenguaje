@@ -1,0 +1,101 @@
+WS_Lenguaje
+
+
+Nueva sintaxis de declaración 
+Estructura 
+
+La declaración de variables:
+
+nombre  tipo  =>  valor;
+
+edad     int     =>  22;
+
+precio   double  =>  19.99;
+
+saludo   string  =>  "Hola";
+
+inicial  char    =>  'W';
+
+activo   boolean =>  true;
+
+Reglas para identificadores
+▸	Deben iniciar con una letra (a–z, A–Z) o guión bajo _
+▸	Pueden contener letras, dígitos (0–9), y guiones bajos.
+▸	No pueden coincidir con ninguna palabra reservada.
+▸	Son case-sensitive: total, y Total son variables distintas.
+▸	El lexer registra el número de línea de cada declaración.
+▸	Los tipos int, y double admiten expresiones con los operadores  +  −  *  /  y paréntesis.
+▸	mul_result  int     =>  4 * 5;
+▸	division    int     =>  1000 / 6;
+▸	promedio    double  =>  (10.0 + 20.0) / 2;
+
+Detección de redeclaración
+Si se declara dos veces el mismo nombre, el compilador emite un aviso sin detener la compilación:
+
+edad  int  =>  22;
+edad  int  =>  30;
+// -> [WS ERROR] Línea 2: variable 'edad' ya fue declarada.
+
+
+Tipo de datos. 
+WS mantiene los cinco tipos primitivos con tipado estático. El tipo se escribe sin corchetes, directamente después del nombre:
+
+Tipo	Descripción y ejemplo de literal
+int	Entero con signo.  Ej:  edad int => 22;
+double	Punto flotante.  Ej:  precio double => 19.99;
+char	Carácter único entre comillas simples.  Ej:  inicial char => 'W';
+string	Cadena entre comillas dobles.  Ej:  saludo string => "Hola";
+boolean	Valor lógico.  Ej:  activo boolean => true;
+
+
+Impresión en pantalla
+
+La sentencia print no cambia:
+
+print variable;
+print "texto literal";
+
+
+Tipo	Salida en consola
+int	Entero sin formato adicional.  Ej: 20
+double	Flotante con 6 decimales.  Ej: 19.990000
+char	Carácter entre comillas simples.  Ej: 'W'
+string	Cadena de texto directa.  Ej: Hola WS!
+boolean	La palabra  true  o  false
+
+
+Comentario de línea  ( // )
+
+// Este es un comentario de linea
+edad  int  =>  22;   // comentario al final de sentencia
+
+Comentario de bloque  ( /* … */ )
+
+/*
+  Bloque de declaracion de variables
+*/
+precio  double  =>  19.99;
+
+
+Implementación en lexer.l
+Las reglas de comentarios tienen prioridad sobre cualquier otro token, y son descartadas antes de que el parser las vea:
+
+{WS}       { /* ignorar espacios */ }
+"\n"        { yylineno++; }
+"//}"[^\n]*                   { /* comentario de línea  */ }
+"/*"([^*]|\*+[^*/])*\*+"/"   { /* comentario de bloque */ }
+
+
+
+Palabras reservadas 
+
+Token	Uso
+print	Sentencia de impresión
+int	Tipo entero
+double	Tipo flotante
+char	Tipo carácter
+string	Tipo cadena
+boolean	Tipo lógico
+true	Literal booleano verdadero
+false	Literal booleano falso
+
