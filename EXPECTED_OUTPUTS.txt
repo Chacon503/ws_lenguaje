@@ -1,0 +1,101 @@
+WS COMPILER TEST - EXPECTED OUTPUTS
+====================================
+
+test_basic_arithmetic.ws
+------------------------
+Expected Output:
+  8
+  2
+  15
+  1
+Description: Tests +, -, *, / operators with integers
+
+test_complex_expr.ws
+--------------------
+Expected Output:
+  11
+  50
+Description: Tests complex nested function calls
+
+test_double_functions.ws
+------------------------
+Expected Output:
+  6.000000
+  7.000000
+Description: Tests operations with double precision numbers
+
+test_function_order.ws
+----------------------
+Expected Output:
+  10
+  20
+  15
+Description: Tests that functions can be defined in any order
+
+test_int_division.ws
+--------------------
+Expected Output:
+  3
+  3
+  14
+Description: Tests integer division with truncation
+
+test_mixed_types.ws
+-------------------
+Expected Output:
+  7.500000
+Description: Tests type coercion from int to double
+
+test_multiple_params.ws
+-----------------------
+Expected Output:
+  60
+  50
+Description: Tests functions with 3 and 4 parameters
+
+test_nested_calls.ws
+--------------------
+Expected Output:
+  20
+  17
+  10
+Description: Tests multiply(add(), ), add(multiply(), ), subtract(multiply(), add())
+
+test_no_params.ws
+-----------------
+Expected Output:
+  10
+Description: Tests function with zero parameters
+
+test_single_param.ws
+--------------------
+Expected Output:
+  49
+Description: Tests function with one parameter (7*7 = 49)
+
+test_two_params.ws
+------------------
+Expected Output:
+  40
+Description: Tests function with two parameters (15+25 = 40)
+
+test_vars_as_args.ws
+--------------------
+Expected Output:
+  42
+Description: Tests passing variables as function arguments (7*6 = 42)
+
+=====================================
+How to Verify:
+=====================================
+
+1. Run all tests:
+   $ cd test
+   $ bash run_tests.sh
+
+2. Run individual test and verify output:
+   $ ../../ws_compiler test_two_params.ws
+   Expected: 40
+
+3. The test runner will show PASS/FAIL status
+

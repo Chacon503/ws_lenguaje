@@ -29,9 +29,19 @@ typedef struct SymbolEntry {
     struct SymbolEntry* next;
 } SymbolEntry;
 
+typedef struct Scope {
+    SymbolEntry* table;
+    struct Scope* next;
+} Scope;
+
+extern Scope* scope_stack;
+
 SymbolEntry* create_entry(char* name, int line);
 SymbolEntry* find_entry(char* name);
 void         print_table(void);
 void         free_table(void);
+void         push_scope(void);
+void         pop_scope(void);
+int          insert_in_current_scope(char* name, DataType type, int line);
 
 #endif /* SYMBOLS_H */

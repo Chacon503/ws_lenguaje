@@ -13,6 +13,8 @@ LEX_SRC    = lexer.l
 YAC_SRC    = parser.y
 SYM_SRC    = symbols.c
 HELPER_SRC = parser_helper.c
+AST_SRC    = ast.c
+INTERP_SRC = interpreter.c
 
 # -- Generated files --------------------------------------
 LEX_OUT    = lex.yy.c
@@ -23,11 +25,11 @@ YAC_HDR    = parser.tab.h
 CC         = gcc
 LEX        = flex
 YAC        = bison -d
-CFLAGS     = -Wall -Wextra -g
+CFLAGS     = -Wall -Wextra -g -lm
 
 # -- Main rule: link everything ---------------------------
-$(TARGET): $(YAC_OUT) $(LEX_OUT) $(SYM_SRC) $(HELPER_SRC)
-	$(CC) $(CFLAGS) $(YAC_OUT) $(LEX_OUT) $(SYM_SRC) $(HELPER_SRC) -lfl -o $(TARGET)
+$(TARGET): $(YAC_OUT) $(LEX_OUT) $(SYM_SRC) $(HELPER_SRC) $(AST_SRC) $(INTERP_SRC)
+	$(CC) $(CFLAGS) $(YAC_OUT) $(LEX_OUT) $(SYM_SRC) $(HELPER_SRC) $(AST_SRC) $(INTERP_SRC) -lfl -o $(TARGET)
 
 # -- Generate lexer C code (needs bison header first) -----
 $(LEX_OUT): $(LEX_SRC) $(YAC_HDR)

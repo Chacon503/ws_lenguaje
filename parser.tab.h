@@ -55,25 +55,43 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     PRINT = 258,                   /* PRINT  */
-    INT_TYPE = 259,                /* INT_TYPE  */
-    CHAR_TYPE = 260,               /* CHAR_TYPE  */
-    DOUBLE_TYPE = 261,             /* DOUBLE_TYPE  */
-    BOOL_TYPE = 262,               /* BOOL_TYPE  */
-    STRING_TYPE = 263,             /* STRING_TYPE  */
-    ARROW = 264,                   /* ARROW  */
-    SEMICOLON = 265,               /* SEMICOLON  */
-    LPARENT = 266,                 /* LPARENT  */
-    RPARENT = 267,                 /* RPARENT  */
-    PLUS = 268,                    /* PLUS  */
-    SUB = 269,                     /* SUB  */
-    MUL = 270,                     /* MUL  */
-    DIV = 271,                     /* DIV  */
-    IDENTIFIER = 272,              /* IDENTIFIER  */
-    NUMBER = 273,                  /* NUMBER  */
-    DOUBLE_LITERAL = 274,          /* DOUBLE_LITERAL  */
-    CHAR_LITERAL = 275,            /* CHAR_LITERAL  */
-    BOOL_LITERAL = 276,            /* BOOL_LITERAL  */
-    STRING_LITERAL = 277           /* STRING_LITERAL  */
+    FUNCTION = 259,                /* FUNCTION  */
+    RETURN = 260,                  /* RETURN  */
+    IF = 261,                      /* IF  */
+    ELSE = 262,                    /* ELSE  */
+    WHILE = 263,                   /* WHILE  */
+    INT_TYPE = 264,                /* INT_TYPE  */
+    CHAR_TYPE = 265,               /* CHAR_TYPE  */
+    DOUBLE_TYPE = 266,             /* DOUBLE_TYPE  */
+    BOOL_TYPE = 267,               /* BOOL_TYPE  */
+    STRING_TYPE = 268,             /* STRING_TYPE  */
+    ARROW = 269,                   /* ARROW  */
+    SEMICOLON = 270,               /* SEMICOLON  */
+    LPARENT = 271,                 /* LPARENT  */
+    RPARENT = 272,                 /* RPARENT  */
+    LBRACE = 273,                  /* LBRACE  */
+    RBRACE = 274,                  /* RBRACE  */
+    COMMA = 275,                   /* COMMA  */
+    EQUALS = 276,                  /* EQUALS  */
+    PLUS = 277,                    /* PLUS  */
+    SUB = 278,                     /* SUB  */
+    MUL = 279,                     /* MUL  */
+    DIV = 280,                     /* DIV  */
+    EQ = 281,                      /* EQ  */
+    NE = 282,                      /* NE  */
+    LT = 283,                      /* LT  */
+    LE = 284,                      /* LE  */
+    GT = 285,                      /* GT  */
+    GE = 286,                      /* GE  */
+    AND = 287,                     /* AND  */
+    OR = 288,                      /* OR  */
+    NOT = 289,                     /* NOT  */
+    IDENTIFIER = 290,              /* IDENTIFIER  */
+    NUMBER = 291,                  /* NUMBER  */
+    DOUBLE_LITERAL = 292,          /* DOUBLE_LITERAL  */
+    CHAR_LITERAL = 293,            /* CHAR_LITERAL  */
+    BOOL_LITERAL = 294,            /* BOOL_LITERAL  */
+    STRING_LITERAL = 295           /* STRING_LITERAL  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -82,7 +100,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 20 "parser.y"
+#line 25 "parser.y"
 
     int    i_val;
     int    b_val;
@@ -91,8 +109,10 @@ union YYSTYPE
     char*  s_val;
     int    type_enum;
     struct SymbolEntry* entry;
+    struct ASTNode* ast_node;
+    struct ASTNode** ast_array;
 
-#line 96 "parser.tab.h"
+#line 116 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
