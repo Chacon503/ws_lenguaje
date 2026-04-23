@@ -1,6 +1,6 @@
 %{
 /*
- * parser.y -- WS Language v3.0
+ * parser.y -- WS Lenguaje
  * LALR(1) grammar with AST generation.
  * Variable syntax: name type => value;
  */
@@ -240,6 +240,7 @@ if_statement
     }
     ;
 
+
 while_statement
     : WHILE LPARENT expression RPARENT block {
         $$ = ast_create_while($3, $5, yylineno);
@@ -277,7 +278,7 @@ argument_list
     ;
 
 expression
-    : NUMBER                       { $$ = ast_create_literal_double($1, yylineno); }
+    : NUMBER                       { $$ = ast_create_literal_int((int)$1, yylineno); }
     | DOUBLE_LITERAL               { $$ = ast_create_literal_double($1, yylineno); }
     | CHAR_LITERAL                 { $$ = ast_create_literal_char($1, yylineno); }
     | BOOL_LITERAL                 { $$ = ast_create_literal_bool($1, yylineno); }

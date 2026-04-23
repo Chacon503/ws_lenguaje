@@ -568,10 +568,10 @@ static const yytype_int16 yyrline[] =
        0,    75,    75,    86,    96,   105,   113,   114,   115,   116,
      117,   118,   119,   120,   123,   127,   139,   140,   141,   142,
      143,   147,   151,   156,   161,   169,   173,   181,   185,   189,
-     195,   206,   217,   224,   235,   238,   244,   250,   261,   267,
-     274,   280,   281,   282,   283,   284,   285,   286,   287,   288,
-     289,   290,   291,   292,   293,   294,   295,   296,   297,   298,
-     299,   300,   301
+     195,   206,   217,   224,   235,   238,   245,   251,   262,   268,
+     275,   281,   282,   283,   284,   285,   286,   287,   288,   289,
+     290,   291,   292,   293,   294,   295,   296,   297,   298,   299,
+     300,   301,   302
 };
 #endif
 
@@ -1543,7 +1543,7 @@ yyreduce:
     break;
 
   case 36: /* while_statement: WHILE LPARENT expression RPARENT block  */
-#line 244 "parser.y"
+#line 245 "parser.y"
                                              {
         (yyval.ast_node) = ast_create_while((yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno);
     }
@@ -1551,7 +1551,7 @@ yyreduce:
     break;
 
   case 37: /* function_call: IDENTIFIER LPARENT argument_list RPARENT  */
-#line 250 "parser.y"
+#line 251 "parser.y"
                                                {
         int arg_count = 0;
         if ((yyvsp[-1].ast_array) != NULL) {
@@ -1564,7 +1564,7 @@ yyreduce:
     break;
 
   case 38: /* argument_list: expression  */
-#line 261 "parser.y"
+#line 262 "parser.y"
                  {
         ASTNode** arr = (ASTNode**) malloc(sizeof(ASTNode*) * 10);
         arr[0] = (yyvsp[0].ast_node);
@@ -1575,7 +1575,7 @@ yyreduce:
     break;
 
   case 39: /* argument_list: argument_list COMMA expression  */
-#line 267 "parser.y"
+#line 268 "parser.y"
                                      {
         int i = 0;
         while ((yyvsp[-2].ast_array)[i] != NULL) i++;
@@ -1587,7 +1587,7 @@ yyreduce:
     break;
 
   case 40: /* argument_list: %empty  */
-#line 274 "parser.y"
+#line 275 "parser.y"
                   {
         (yyval.ast_array) = NULL;
     }
@@ -1595,133 +1595,133 @@ yyreduce:
     break;
 
   case 41: /* expression: NUMBER  */
-#line 280 "parser.y"
-                                   { (yyval.ast_node) = ast_create_literal_double((yyvsp[0].d_val), yylineno); }
+#line 281 "parser.y"
+                                   { (yyval.ast_node) = ast_create_literal_int((int)(yyvsp[0].d_val), yylineno); }
 #line 1601 "parser.tab.c"
     break;
 
   case 42: /* expression: DOUBLE_LITERAL  */
-#line 281 "parser.y"
+#line 282 "parser.y"
                                    { (yyval.ast_node) = ast_create_literal_double((yyvsp[0].d_val), yylineno); }
 #line 1607 "parser.tab.c"
     break;
 
   case 43: /* expression: CHAR_LITERAL  */
-#line 282 "parser.y"
+#line 283 "parser.y"
                                    { (yyval.ast_node) = ast_create_literal_char((yyvsp[0].c_val), yylineno); }
 #line 1613 "parser.tab.c"
     break;
 
   case 44: /* expression: BOOL_LITERAL  */
-#line 283 "parser.y"
+#line 284 "parser.y"
                                    { (yyval.ast_node) = ast_create_literal_bool((yyvsp[0].b_val), yylineno); }
 #line 1619 "parser.tab.c"
     break;
 
   case 45: /* expression: STRING_LITERAL  */
-#line 284 "parser.y"
+#line 285 "parser.y"
                                    { (yyval.ast_node) = ast_create_literal_string((yyvsp[0].s_val), yylineno); }
 #line 1625 "parser.tab.c"
     break;
 
   case 46: /* expression: IDENTIFIER  */
-#line 285 "parser.y"
+#line 286 "parser.y"
                                    { (yyval.ast_node) = ast_create_identifier((yyvsp[0].s_val), yylineno); free((yyvsp[0].s_val)); }
 #line 1631 "parser.tab.c"
     break;
 
   case 47: /* expression: expression PLUS expression  */
-#line 286 "parser.y"
+#line 287 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_PLUS, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1637 "parser.tab.c"
     break;
 
   case 48: /* expression: expression SUB expression  */
-#line 287 "parser.y"
+#line 288 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_MINUS, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1643 "parser.tab.c"
     break;
 
   case 49: /* expression: expression MUL expression  */
-#line 288 "parser.y"
+#line 289 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_MUL, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1649 "parser.tab.c"
     break;
 
   case 50: /* expression: expression DIV expression  */
-#line 289 "parser.y"
+#line 290 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_DIV, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1655 "parser.tab.c"
     break;
 
   case 51: /* expression: expression EQ expression  */
-#line 290 "parser.y"
+#line 291 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_EQ, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1661 "parser.tab.c"
     break;
 
   case 52: /* expression: expression NE expression  */
-#line 291 "parser.y"
+#line 292 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_NE, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1667 "parser.tab.c"
     break;
 
   case 53: /* expression: expression LT expression  */
-#line 292 "parser.y"
+#line 293 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_LT, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1673 "parser.tab.c"
     break;
 
   case 54: /* expression: expression LE expression  */
-#line 293 "parser.y"
+#line 294 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_LE, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1679 "parser.tab.c"
     break;
 
   case 55: /* expression: expression GT expression  */
-#line 294 "parser.y"
+#line 295 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_GT, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1685 "parser.tab.c"
     break;
 
   case 56: /* expression: expression GE expression  */
-#line 295 "parser.y"
+#line 296 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_GE, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1691 "parser.tab.c"
     break;
 
   case 57: /* expression: expression AND expression  */
-#line 296 "parser.y"
+#line 297 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_AND, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1697 "parser.tab.c"
     break;
 
   case 58: /* expression: expression OR expression  */
-#line 297 "parser.y"
+#line 298 "parser.y"
                                    { (yyval.ast_node) = ast_create_binop(BINOP_OR, (yyvsp[-2].ast_node), (yyvsp[0].ast_node), yylineno); }
 #line 1703 "parser.tab.c"
     break;
 
   case 59: /* expression: NOT expression  */
-#line 298 "parser.y"
+#line 299 "parser.y"
                                    { (yyval.ast_node) = ast_create_unary(UNARY_NOT, (yyvsp[0].ast_node), yylineno); }
 #line 1709 "parser.tab.c"
     break;
 
   case 60: /* expression: SUB expression  */
-#line 299 "parser.y"
+#line 300 "parser.y"
                                   { (yyval.ast_node) = ast_create_unary(UNARY_NEG, (yyvsp[0].ast_node), yylineno); }
 #line 1715 "parser.tab.c"
     break;
 
   case 61: /* expression: LPARENT expression RPARENT  */
-#line 300 "parser.y"
+#line 301 "parser.y"
                                    { (yyval.ast_node) = (yyvsp[-1].ast_node); }
 #line 1721 "parser.tab.c"
     break;
 
   case 62: /* expression: function_call  */
-#line 301 "parser.y"
+#line 302 "parser.y"
                                    { (yyval.ast_node) = (yyvsp[0].ast_node); }
 #line 1727 "parser.tab.c"
     break;
@@ -1920,7 +1920,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 304 "parser.y"
+#line 305 "parser.y"
 
 
 void yyerror(const char* s) {

@@ -1,5 +1,5 @@
 # =========================================================
-# Makefile  —  WS Language v3.0  (bison + flex)
+# Makefile  —  WS Lenguaje  (bison + flex)
 # Pipeline: lexer.l -> flex -> lex.yy.c
 #           parser.y -> bison -> parser.tab.c / parser.tab.h
 #           gcc links everything into the final binary
@@ -25,11 +25,12 @@ YAC_HDR    = parser.tab.h
 CC         = gcc
 LEX        = flex
 YAC        = bison -d
-CFLAGS     = -Wall -Wextra -g -lm
+CFLAGS     = -Wall -Wextra -g
+LDFLAGS    = -lfl -lm
 
 # -- Main rule: link everything ---------------------------
 $(TARGET): $(YAC_OUT) $(LEX_OUT) $(SYM_SRC) $(HELPER_SRC) $(AST_SRC) $(INTERP_SRC)
-	$(CC) $(CFLAGS) $(YAC_OUT) $(LEX_OUT) $(SYM_SRC) $(HELPER_SRC) $(AST_SRC) $(INTERP_SRC) -lfl -o $(TARGET)
+	$(CC) $(CFLAGS) $(YAC_OUT) $(LEX_OUT) $(SYM_SRC) $(HELPER_SRC) $(AST_SRC) $(INTERP_SRC) $(LDFLAGS) -o $(TARGET)
 
 # -- Generate lexer C code (needs bison header first) -----
 $(LEX_OUT): $(LEX_SRC) $(YAC_HDR)
@@ -40,8 +41,10 @@ $(YAC_OUT) $(YAC_HDR): $(YAC_SRC)
 	$(YAC) $(YAC_SRC)
 
 # -- Run with default source file -------------------------
+
+
 run: $(TARGET)
-	./$(TARGET) source.ws
+	./$(TARGET) funciones.ws
 
 # -- Run with a custom file: make run-file FILE=hello.ws --
 run-file: $(TARGET)
@@ -65,4 +68,3 @@ help:
 	@echo "  Direct usage: ./ws_compiler <file.ws>"
 	@echo ""
 
-.PHONY: run run-file clean help

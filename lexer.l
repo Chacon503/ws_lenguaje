@@ -1,6 +1,6 @@
 %{
 /*
- * lexer.l -- WS Language v3.0
+ * lexer.l -- WS Lenguaje
  * Lexical analyzer.
  * Variable syntax: name type => value;
  */
@@ -21,6 +21,7 @@ STRING  \"(\\.|[^"\\])*\"
 "//"[^\n]*                    { /* single-line comment */ }
 "/*"([^*]|\*+[^*/])*\*+"/"   { /* multi-line comment  */ }
 "print"    { return PRINT;        }
+"func"     { return FUNCTION;    }
 "function" { return FUNCTION;    }
 "return"   { return RETURN;      }
 "if"       { return IF;          }
@@ -32,20 +33,20 @@ STRING  \"(\\.|[^"\\])*\"
 "string"   { return STRING_TYPE; }
 "boolean"  { return BOOL_TYPE;   }
 "=>"  { return ARROW;     }
+"=="  { return EQ;        }
+"!="  { return NE;        }
+"<="  { return LE;        }
+">="  { return GE;        }
+"&&"  { return AND;       }
+"||"  { return OR;        }
 "="   { return EQUALS;    }
+"<"   { return LT;        }
+">"   { return GT;        }
+"!"   { return NOT;       }
 "+"   { return PLUS;      }
 "-"   { return SUB;       }
 "*"   { return MUL;       }
 "/"   { return DIV;       }
-"=="  { return EQ;        }
-"!="  { return NE;        }
-"<"   { return LT;        }
-"<="  { return LE;        }
-">"   { return GT;        }
-">="  { return GE;        }
-"&&"  { return AND;       }
-"||"  { return OR;        }
-"!"   { return NOT;       }
 "("   { return LPARENT;   }
 ")"   { return RPARENT;   }
 "{"   { return LBRACE;    }
